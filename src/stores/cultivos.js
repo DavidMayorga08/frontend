@@ -5,6 +5,7 @@ import { useLoginStore } from '../stores/login.js';
 
 export const useCultivosStore = defineStore('cultivos', () => {
     let token = ref(useLoginStore().user.token);
+    let cultivos = ref([]);
 
     let getCultivos = async () => {
         try {
@@ -15,6 +16,7 @@ export const useCultivosStore = defineStore('cultivos', () => {
                     }
                 }
             )
+            cultivos.value = res.data;
             return res.data;
         } catch (error) {
             console.log(error);
@@ -67,6 +69,7 @@ export const useCultivosStore = defineStore('cultivos', () => {
     }
 
     return {
+        cultivos,
         getCultivos, getCultivo, postCultivo, putCultivo
     }
     });
