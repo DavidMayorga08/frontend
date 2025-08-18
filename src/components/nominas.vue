@@ -23,25 +23,20 @@
               />
             </svg>
           </q-btn>
-           <q-btn
-              class="q-mx-md"
-              color="green"
-              @click="exportToExcelTikets()"
+          <q-btn class="q-mx-md" color="green" @click="exportToExcelTikets()">
+            <svg
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              width="20"
+              height="20"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                version="1.1"
-                viewBox="0 0 1024 1024"
-                width="20"
-                height="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill="#ffffff"
-                  d="M960 128H64C28.7 128 0 156.7 0 192v640c0 35.3 28.7 64 64 64h896c35.3 0 64-28.7 64-64V192c0-35.3-28.7-64-64-64zM576 608H448l-64-96-64 96H192l96-144-96-144h128l64 96 64-96h128L480 464l96 144z"
-                />
-              </svg>
-            </q-btn>
-          
+              <path
+                fill="#ffffff"
+                d="M960 128H64C28.7 128 0 156.7 0 192v640c0 35.3 28.7 64 64 64h896c35.3 0 64-28.7 64-64V192c0-35.3-28.7-64-64-64zM576 608H448l-64-96-64 96H192l96-144-96-144h128l64 96 64-96h128L480 464l96 144z"
+              />
+            </svg>
+          </q-btn>
         </template>
         <template v-slot:body-cell-Acciones="props">
           <q-td :props="props">
@@ -92,20 +87,20 @@
               />
             </svg>
           </q-btn>
-           <q-btn class="q-mx-md" color="green" @click="exportToExcel()">
-              <svg
-                version="1.1"
-                viewBox="0 0 1024 1024"
-                width="20"
-                height="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill="#ffffff"
-                  d="M960 128H64C28.7 128 0 156.7 0 192v640c0 35.3 28.7 64 64 64h896c35.3 0 64-28.7 64-64V192c0-35.3-28.7-64-64-64zM576 608H448l-64-96-64 96H192l96-144-96-144h128l64 96 64-96h128L480 464l96 144z"
-                />
-              </svg>
-            </q-btn>
+          <q-btn class="q-mx-md" color="green" @click="exportToExcel()">
+            <svg
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              width="20"
+              height="20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill="#ffffff"
+                d="M960 128H64C28.7 128 0 156.7 0 192v640c0 35.3 28.7 64 64 64h896c35.3 0 64-28.7 64-64V192c0-35.3-28.7-64-64-64zM576 608H448l-64-96-64 96H192l96-144-96-144h128l64 96 64-96h128L480 464l96 144z"
+              />
+            </svg>
+          </q-btn>
         </template>
         <template v-slot:body-cell-Acciones="props">
           <q-td :props="props">
@@ -129,7 +124,6 @@
                 />
               </svg>
             </q-btn>
-           
           </q-td>
         </template>
       </q-table>
@@ -157,24 +151,24 @@
               />
             </svg>
           </q-btn>
-           <q-btn
-              class="q-mx-md"
-              color="green"
-              @click="exportToExcelTrabajador()"
+          <q-btn
+            class="q-mx-md"
+            color="green"
+            @click="exportToExcelTrabajador()"
+          >
+            <svg
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              width="20"
+              height="20"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                version="1.1"
-                viewBox="0 0 1024 1024"
-                width="20"
-                height="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill="#ffffff"
-                  d="M960 128H64C28.7 128 0 156.7 0 192v640c0 35.3 28.7 64 64 64h896c35.3 0 64-28.7 64-64V192c0-35.3-28.7-64-64-64zM576 608H448l-64-96-64 96H192l96-144-96-144h128l64 96 64-96h128L480 464l96 144z"
-                />
-              </svg>
-            </q-btn>
+              <path
+                fill="#ffffff"
+                d="M960 128H64C28.7 128 0 156.7 0 192v640c0 35.3 28.7 64 64 64h896c35.3 0 64-28.7 64-64V192c0-35.3-28.7-64-64-64zM576 608H448l-64-96-64 96H192l96-144-96-144h128l64 96 64-96h128L480 464l96 144z"
+              />
+            </svg>
+          </q-btn>
         </template>
         <template v-slot:body-cell-Acciones="props">
           <q-td :props="props">
@@ -198,7 +192,6 @@
                 />
               </svg>
             </q-btn>
-           
           </q-td>
         </template>
       </q-table>
@@ -226,24 +219,20 @@
               />
             </svg>
           </q-btn>
-           <q-btn
-              class="q-mx-md"
-              color="green"
-              @click="exportToExcelLabor()"
+          <q-btn class="q-mx-md" color="green" @click="exportToExcelLabor()">
+            <svg
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              width="20"
+              height="20"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                version="1.1"
-                viewBox="0 0 1024 1024"
-                width="20"
-                height="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill="#ffffff"
-                  d="M960 128H64C28.7 128 0 156.7 0 192v640c0 35.3 28.7 64 64 64h896c35.3 0 64-28.7 64-64V192c0-35.3-28.7-64-64-64zM576 608H448l-64-96-64 96H192l96-144-96-144h128l64 96 64-96h128L480 464l96 144z"
-                />
-              </svg>
-            </q-btn>
+              <path
+                fill="#ffffff"
+                d="M960 128H64C28.7 128 0 156.7 0 192v640c0 35.3 28.7 64 64 64h896c35.3 0 64-28.7 64-64V192c0-35.3-28.7-64-64-64zM576 608H448l-64-96-64 96H192l96-144-96-144h128l64 96 64-96h128L480 464l96 144z"
+              />
+            </svg>
+          </q-btn>
         </template>
         <template v-slot:body-cell-Acciones="props">
           <q-td :props="props">
@@ -294,24 +283,24 @@
               />
             </svg>
           </q-btn>
-           <q-btn
-              class="q-mx-md"
-              color="green"
-              @click="exportToExcelTrabajadores()"
+          <q-btn
+            class="q-mx-md"
+            color="green"
+            @click="exportToExcelTrabajadores()"
+          >
+            <svg
+              version="1.1"
+              viewBox="0 0 1024 1024"
+              width="20"
+              height="20"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <svg
-                version="1.1"
-                viewBox="0 0 1024 1024"
-                width="20"
-                height="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill="#ffffff"
-                  d="M960 128H64C28.7 128 0 156.7 0 192v640c0 35.3 28.7 64 64 64h896c35.3 0 64-28.7 64-64V192c0-35.3-28.7-64-64-64zM576 608H448l-64-96-64 96H192l96-144-96-144h128l64 96 64-96h128L480 464l96 144z"
-                />
-              </svg>
-            </q-btn>
+              <path
+                fill="#ffffff"
+                d="M960 128H64C28.7 128 0 156.7 0 192v640c0 35.3 28.7 64 64 64h896c35.3 0 64-28.7 64-64V192c0-35.3-28.7-64-64-64zM576 608H448l-64-96-64 96H192l96-144-96-144h128l64 96 64-96h128L480 464l96 144z"
+              />
+            </svg>
+          </q-btn>
         </template>
         <template v-slot:body-cell-Acciones="props">
           <q-td :props="props">
@@ -343,14 +332,24 @@
       <q-btn
         color="primary"
         @click="mostrarTablas()"
-        v-if="!tablaPagos && !tablaRegistroTrabajos && !tablaTiposLabor && !tablaTrabajadores"
+        v-if="
+          !tablaPagos &&
+          !tablaRegistroTrabajos &&
+          !tablaTiposLabor &&
+          !tablaTrabajadores
+        "
       >
         Mostrar mas
       </q-btn>
       <q-btn
         color="primary"
         @click="ocultarTablas()"
-        v-if="tablaPagos || tablaRegistroTrabajos || tablaTiposLabor || tablaTrabajadores"
+        v-if="
+          tablaPagos ||
+          tablaRegistroTrabajos ||
+          tablaTiposLabor ||
+          tablaTrabajadores
+        "
       >
         Ocultar
       </q-btn>
@@ -711,12 +710,6 @@ let columnsTrabajadores = [
     headerStyle: "font-weight: bold;",
     field: "Informacion_bancaria",
   },
-  // {
-  //   name: "Historial_modificacion",
-  //   label: "Historial de Modificación",
-  //   align: "center",
-  //   field: "Historial_modificacion",
-  // },
   {
     name: "Acciones",
     label: "",
@@ -726,35 +719,38 @@ let columnsTrabajadores = [
 ];
 
 let getNominas = async () => {
-  let Trabajadores =
-    await useNominasTrabajadores.getNominasTrabajadores();
+  let Trabajadores = await useNominasTrabajadores.getNominasTrabajadores();
   let TiposLabor = await useNominasTiposLabor.getNominasTiposLabor();
   parcelas.value = await useParcelas.getParcelas();
   let RegistroTrabajos =
     await useNominasRegistroTrabajos.getNominasRegistroTrabajos();
   let Pagos = await useNominasPagos.getNominasPagos();
   let Tickets = await useNominasTicket.getNominasTicket();
-  rowsTrabajadores.value = Trabajadores.filter((trabajador) => trabajador.Id_finca === finca.value);
-  rowsTiposLabor.value = TiposLabor.filter((tipoLabor) => tipoLabor.Id_finca === finca.value);
-  rowsRegistroTrabajos.value = RegistroTrabajos.filter((registroTrabajos) => registroTrabajos.Id_finca === finca.value);
+  rowsTrabajadores.value = Trabajadores.filter(
+    (trabajador) => trabajador.Id_finca === finca.value
+  );
+  rowsTiposLabor.value = TiposLabor.filter(
+    (tipoLabor) => tipoLabor.Id_finca === finca.value
+  );
+  rowsRegistroTrabajos.value = RegistroTrabajos.filter(
+    (registroTrabajos) => registroTrabajos.Id_finca === finca.value
+  );
   rowsPagos.value = Pagos.filter((pago) => pago.Id_finca === finca.value);
-  rowsTickets.value = Tickets.filter((ticket) => ticket.Id_finca === finca.value);
+  rowsTickets.value = Tickets.filter(
+    (ticket) => ticket.Id_finca === finca.value
+  );
 };
 let exportData = ref([]);
 let exportDataTrabajador = ref([]);
 let exportDataTikets = ref([]);
-let exportExcelLabor= ref([]);
-
-
+let exportExcelLabor = ref([]);
 
 const loadNominasPagos = async () => {
   exportData.value = await useNominasPagos.getNominasPagos();
   exportDataTrabajador.value =
     await useNominasRegistroTrabajos.getNominasRegistroTrabajos();
-     exportDataTikets.value =
-    await useNominasTicket.getNominasTicket();
-      exportExcelLabor.value =
-    useNominasTiposLabor.getNominasTiposLabor();
+  exportDataTikets.value = await useNominasTicket.getNominasTicket();
+  exportExcelLabor.value = useNominasTiposLabor.getNominasTiposLabor();
 };
 
 const exportToExcel = () => {
@@ -763,11 +759,32 @@ const exportToExcel = () => {
     return;
   }
 
-  const worksheet = XLSX.utils.json_to_sheet(exportData.value);
+  const dataFiltrada = exportData.value.map((item) => {
+    let trabajador = rowsTrabajadores.value.find(
+      (t) => t._id === item.Id_trabajador
+    );
+
+    return {
+      Trabajador: trabajador
+        ? `${trabajador.Nombre} ${trabajador.Apellido}`
+        : "",
+      Fecha_pago: item.Fecha_pago.split("T")[0],
+      Monto_base: item.Monto_base,
+      Bonificaciones: item.Bonificaciones,
+      Motivo_bonificaciones: item.Motivo_bonificaciones,
+      Descuentos: item.Descuentos,
+      Motivo_descuentos: item.Motivo_descuentos,
+      Impuestos: item.Impuestos,
+      Motivo_impuestos: item.Motivo_impuestos,
+      Monto_total: item.Monto_total,
+    };
+  });
+
+  const worksheet = XLSX.utils.json_to_sheet(dataFiltrada);
   const workbook = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(workbook, worksheet, "Nómina de Pagos");
 
-  XLSX.writeFile(workbook, "nomina_pagos_completo.xlsx");
+  XLSX.writeFile(workbook, "nomina_pagos.xlsx");
 };
 const exportToExcelTrabajador = () => {
   if (exportDataTrabajador.value.length === 0) {
@@ -775,23 +792,48 @@ const exportToExcelTrabajador = () => {
     return;
   }
 
-  const worksheet = XLSX.utils.json_to_sheet(exportDataTrabajador.value);
+  console.log(exportDataTrabajador);
+
+  const dataFiltrada = exportDataTrabajador.value.map((item) => {
+    let trabajador = rowsTrabajadores.value.find(
+      (t) => t._id === item.Id_trabajador
+    );
+
+    return {
+      Trabajador: trabajador
+        ? `${trabajador.Nombre} ${trabajador.Apellido}`
+        : "Desconocido",
+      Fecha: item.Fecha.split("T")[0],
+      Hora_inicio: item.Hora_inicio,
+      Hora_fin: item.Hora_fin,
+      Tiempo_total: item.Tiempo_total,
+      Cantidad_recogida: item.Cantidad_recogida,
+    };
+  });
+
+  const worksheet = XLSX.utils.json_to_sheet(dataFiltrada);
   const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, "Nómina de Trabajadores");
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Registro de Labores");
 
-  XLSX.writeFile(workbook, "nomina_trabajadores_completo.xlsx");
+  XLSX.writeFile(workbook, "registro_labores.xlsx");
 };
-const exportToExcelTikets = () => {
-  // if (exportDataTikets.value.length === 0) {
-  //   console.error("No hay datos para exportar.");
-  //   return;
-  // }
 
-  const worksheet = XLSX.utils.json_to_sheet(exportDataTikets.value);
+const exportToExcelTikets = () => {
+  if (exportDataTikets.value.length === 0) {
+    console.error("No hay datos para exportar.");
+    return;
+  }
+
+  const dataFiltrada = exportDataTikets.value.map((item) => ({
+    Detalle: item.Detalle,
+    Fecha: item.Fecha_emision.split("T")[0],
+  }));
+
+  const worksheet = XLSX.utils.json_to_sheet(dataFiltrada);
   const workbook = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(workbook, worksheet, "Nómina de Tikets");
 
-  XLSX.writeFile(workbook, "nomina_Tikets_completo.xlsx");
+  XLSX.writeFile(workbook, "nomina_Tikets.xlsx");
 };
 
 const exportToExcelLabor = () => {
@@ -800,37 +842,48 @@ const exportToExcelLabor = () => {
     return;
   }
 
-  const worksheet = XLSX.utils.json_to_sheet(rowsTiposLabor.value);
+  console.log(rowsTiposLabor);
+
+  const cleanData = rowsTiposLabor.value.map((item) => {
+    return {
+      Nombre: item.Nombre,
+      Categoria: item.Categoria,
+      "Unidad de Medida": item.Unidad_medida,
+      "Tarifa Base": item.Tarifa_base,
+      "Tarifa Producto": item.Tarifa_producto,
+    };
+  });
+
+  const worksheet = XLSX.utils.json_to_sheet(cleanData);
   const workbook = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(workbook, worksheet, "Nómina de Labor");
 
   XLSX.writeFile(workbook, "nomina_labor_completo.xlsx");
 };
+
 const exportToExcelTrabajadores = () => {
   if (rowsTrabajadores.value.length === 0) {
     console.error("No hay datos para exportar.");
     return;
   }
 
-  const worksheet = XLSX.utils.json_to_sheet(rowsTrabajadores.value);
+  const data = rowsTrabajadores.value.map((t) => ({
+    Nombre: t.Nombre,
+    Apellido: t.Apellido,
+    TipoIdentificacion: t.Tipo_identificacion,
+    NumeroIdentificacion: t.Numero_identificacion,
+    Telefono: t.Telefono,
+    Direccion: t.Direccion,
+    MetodoPago: t.Metodo_pago,
+    InformacionBancaria: t.Informacion_bancaria,
+  }));
+
+  const worksheet = XLSX.utils.json_to_sheet(data);
   const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, "Nómina de Trabajadores ");
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Nómina de Trabajadores");
 
   XLSX.writeFile(workbook, "nomina_Trabajadores_completo.xlsx");
 };
-// const exportToExcel = () => {
-
-//   if (exportDataTrabajador.value.length === 0) {
-//     console.error("No hay datos para exportar.");
-//     return;
-//   }
-
-//   const worksheet = XLSX.utils.json_to_sheet(exportDataTrabajador.value);
-//   const workbook = XLSX.utils.book_new();
-//   XLSX.utils.book_append_sheet(workbook, worksheet, "Nómina de Trabajadores");
-
-//   XLSX.writeFile(workbook, "nomina_trabajadores_completo.xlsx");
-// };
 
 let crearPago = () => {
   router.push("/formNominasPagos");
@@ -906,13 +959,13 @@ onMounted(() => {
 });
 </script>
 <style scoped>
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-.btn_mostrar_tablas{
+.btn_mostrar_tablas {
   display: flex;
   justify-content: center;
   margin: 20px 0;

@@ -21,7 +21,7 @@ headerStyle: "font-weight: bold;",
           <q-btn
             color="negative"
             outline
-            label="Clean"
+            label="Limpiar"
             icon="clear_all"
             class="q-mr-sm limpiar"
             @click="limpiarFiltros"
@@ -77,7 +77,7 @@ headerStyle: "font-weight: bold;",
   </div>
 </template>
 <script setup>
-import { ref, onMounted ,computed} from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
 import { useProveedoresStore } from "../stores/proveedores.js";
@@ -142,41 +142,22 @@ let exportarPDF = () => {
   doc.setFontSize(18);
   doc.text("Proveedores", 14, 22);
 
-  const headers = columns.map((col) => col.label);
-  const data = rows.value.map((row) =>
-    columns.map((col) => {
-      if (typeof col.field === "function") {
-        return col.field(row);
-      }
-      return row[col.field];
-    })
-  );
-
-  const group1 = columns.slice(0, 5);
-  const group2 = columns.slice(5); // Segundo grupo de columnas
+  // Solo las primeras 5 columnas (sin Acciones)
+  const columnasImportantes = columns.slice(0, 5);
 
   doc.autoTable({
-    head: [group1.map((col) => col.label)],
+    head: [columnasImportantes.map((col) => col.label)],
     body: rows.value.map((row) =>
-      group1.map((col) =>
+      columnasImportantes.map((col) =>
         typeof col.field === "function" ? col.field(row) : row[col.field]
       )
     ),
     startY: 30,
   });
 
-  doc.autoTable({
-    head: [group2.map((col) => col.label)],
-    body: rows.value.map((row) =>
-      group2.map((col) =>
-        typeof col.field === "function" ? col.field(row) : row[col.field]
-      )
-    ),
-    startY: doc.lastAutoTable.finalY + 10,
-  });
-
   doc.save("Proveedores.pdf");
 };
+
 let getProveedores = async () => {
   let proveedores = await useProveedores.getProveedores();
   rows.value = proveedores.filter(

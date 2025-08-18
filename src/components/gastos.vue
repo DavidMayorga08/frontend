@@ -24,6 +24,13 @@
             @click="exportarPDF"
             icon="picture_as_pdf"
           />
+          <q-btn
+            class="q-mx-md"
+            color="secondary"
+            @click="exportarExcel"
+            icon="table_chart"
+            label="Exportar Excel"
+          />
         </template>
         <template v-slot:body-cell-Acciones="props">
           <q-td :props="props">
@@ -47,34 +54,6 @@
                 />
               </svg>
             </q-btn>
-            <q-btn color="green" @click="exportarExcel">
-              <svg
-                version="1.1"
-                viewBox="0 0 1024 1024"
-                width="20"
-                height="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill="#ffffff"
-                  d="M960 128H64C28.7 128 0 156.7 0 192v640c0 35.3 28.7 64 64 64h896c35.3 0 64-28.7 64-64V192c0-35.3-28.7-64-64-64zM576 608H448l-64-96-64 96H192l96-144-96-144h128l64 96 64-96h128L480 464l96 144z"
-                />
-              </svg>
-            </q-btn>
-            <q-btn color="red" @click="exportarPDF">
-              <svg
-                version="1.1"
-                viewBox="0 0 1024 1024"
-                width="20"
-                height="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill="#ffffff"
-                  d="M960 128H64C28.7 128 0 156.7 0 192v640c0 35.3 28.7 64 64 64h896c35.3 0 64-28.7 64-64V192c0-35.3-28.7-64-64-64zM576 608H448l-64-96-64 96H192l96-144-96-144h128l64 96 64-96h128L480 464l96 144z"
-                />
-              </svg>
-            </q-btn>
           </q-td>
         </template>
       </q-table>
@@ -95,47 +74,26 @@ import "jspdf-autotable";
 
 let exportarPDF = () => {
   const doc = new jsPDF();
-  doc.setFontSize(18);
-  doc.text("Gastos", 14, 22);
+  doc.setFontSize(16);
+  doc.text("Gastos", 12, 20);
 
-  const headers = columns.map((col) => col.label);
-  const data = rows.value.map((row) =>
-    columns.map((col) => {
-      if (typeof col.field === "function") {
-        return col.field(row);
-      }
-      return row[col.field];
-    })
-  );
-
-  const group1 = columns.slice(0, 5);
-  const group2 = columns.slice(5);
+  const columnasImportantes = columns.slice(0, 5);
 
   doc.autoTable({
-    head: [group1.map((col) => col.label)],
+    head: [columnasImportantes.map((col) => col.label)],
     body: rows.value.map((row) =>
-      group1.map((col) =>
+      columnasImportantes.map((col) =>
         typeof col.field === "function" ? col.field(row) : row[col.field]
       )
     ),
     startY: 30,
   });
 
-  doc.autoTable({
-    head: [group2.map((col) => col.label)],
-    body: rows.value.map((row) =>
-      group2.map((col) =>
-        typeof col.field === "function" ? col.field(row) : row[col.field]
-      )
-    ),
-    startY: doc.lastAutoTable.finalY + 10,
-  });
-
   doc.save("Gastos.pdf");
 };
+
 let exportarExcel = () => {
   const data = rows.value.map((row) => ({
-    Finca: row.Id_finca,
     Fecha: row.Fecha.split("T")[0],
     Monto: row.Monto,
     Descripcion: row.Descripcion,
@@ -189,12 +147,7 @@ let columns = [
     align: "center",
     field: "Metodo_pago",
   },
-  {
-    name: "Historial_modificacion",
-    label: "Historial de Modificación",
-    align: "center",
-    field: "Historial_modificacion",
-  },
+
   {
     name: "Acciones",
     label: "",

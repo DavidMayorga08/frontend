@@ -299,8 +299,8 @@
             <div class="cont_inputs">
               <label for="transplante">Transplante</label>
               <select class="input" v-model="transplante">
-                <option value="true">Si</option>
-                <option value="false">No</option>
+                <option :value="true">Si</option>
+                <option :value="false">No</option>
               </select>
             </div>
             <div class="cont_inputs">
@@ -439,7 +439,7 @@ let cultivo = ref("");
 let responsable = ref("");
 let fecha_siembra = ref("");
 let fecha_cosecha = ref("");
-let transplante = ref("");
+let transplante = ref(null);
 let cantidad = ref("");
 let semilla = ref("");
 
@@ -474,12 +474,13 @@ function validarCampos() {
     ocultar();
     return false;
   }
-  if (!transplante.value.trim()) {
+  if (transplante.value === null) {
     text.value = "El campo transplante es obligatorio";
     registroFallido.value = true;
     ocultar();
     return false;
   }
+
   if (!String(cantidad.value).trim()) {
     text.value = "El campo cantidad es obligatorio";
     registroFallido.value = true;
@@ -554,7 +555,6 @@ let enviar = async () => {
       Id_semillas: semilla.value._id,
       Historial_modificacion: [modifica],
     };
-    console.log(siembra);
     await siembrasStore.postSiembra(siembra);
     spinner.value = false;
     text.value = "Siembra creada correctamente";
@@ -576,6 +576,7 @@ onMounted(async () => {
     fecha_siembra.value = siembra.Fecha_siembra.split("T")[0];
     fecha_cosecha.value = siembra.Fecha_cosecha.split("T")[0];
     transplante.value = siembra.Transplante;
+
     cantidad.value = siembra.Cantidad;
     semilla.value = semillas.value.find(
       (semilla) => semilla._id === siembra.Id_semillas

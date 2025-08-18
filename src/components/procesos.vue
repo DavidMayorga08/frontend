@@ -18,7 +18,7 @@
               />
             </svg>
           </q-btn>
-             <q-btn
+          <q-btn
             class="q-mx-md"
             color="secondary"
             @click="exportarPDF"
@@ -98,13 +98,7 @@ let columns = [
     headerStyle: "font-weight: bold;",
     field: (row) => row.Fecha_fin.split("T")[0],
   },
-  {
-    name: "Historial_modificacion",
-    label: "Historial de modificación",
-    align: "center",
-    headerStyle: "font-weight: bold;",
-    field: "Historial_modificacion",
-  },
+
   {
     name: "Acciones",
     label: "",
@@ -119,40 +113,22 @@ let exportarPDF = () => {
   doc.setFontSize(18);
   doc.text("Procesos", 14, 22);
 
-  const headers = columns.map((col) => col.label);
-  const data = rows.value.map((row) =>
-    columns.map((col) => {
-      if (typeof col.field === "function") {
-        return col.field(row);
-      }
-      return row[col.field];
-    })
-  );
-  const group1 = columns.slice(0, 5);
-  const group2 = columns.slice(5); // Segundo grupo de columnas
+  // ✅ Solo los 5 campos principales
+  const columnasImportantes = columns.slice(0, 5);
 
   doc.autoTable({
-    head: [group1.map((col) => col.label)],
+    head: [columnasImportantes.map((col) => col.label)],
     body: rows.value.map((row) =>
-      group1.map((col) =>
+      columnasImportantes.map((col) =>
         typeof col.field === "function" ? col.field(row) : row[col.field]
       )
     ),
     startY: 30,
   });
 
-  doc.autoTable({
-    head: [group2.map((col) => col.label)],
-    body: rows.value.map((row) =>
-      group2.map((col) =>
-        typeof col.field === "function" ? col.field(row) : row[col.field]
-      )
-    ),
-    startY: doc.lastAutoTable.finalY + 10,
-  });
-
   doc.save("Procesos.pdf");
 };
+
 let traerProcesos = async () => {
   let procesos = await useProcesos.getProcesos();
   console.log(procesos);

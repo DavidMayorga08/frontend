@@ -18,7 +18,7 @@
               />
             </svg>
           </q-btn>
-              <q-btn
+          <q-btn
             class="q-mx-md"
             color="secondary"
             @click="exportarPDF"
@@ -142,7 +142,7 @@ let columns = [
     label: "",
     align: "center",
     field: "Acciones",
-  }
+  },
 ];
 
 let rows = ref([]);
@@ -151,41 +151,29 @@ let exportarPDF = () => {
   doc.setFontSize(18);
   doc.text("Reporte de Siembra", 14, 22);
 
-  const headers = columns.map((col) => col.label);
-  const data = rows.value.map((row) =>
-    columns.map((col) => {
-      if (typeof col.field === "function") {
-        return col.field(row);
-      }
-      return row[col.field];
-    })
+  const selectedColumns = columns.filter((col) =>
+    [
+      "Id_cultivo",
+      "Responsable",
+      "Fecha_siembra",
+      "Fecha_cosecha",
+      "Cantidad",
+    ].includes(col.name)
   );
 
-  const group1 = columns.slice(0, 5); 
-  const group2 = columns.slice(5); // Segundo grupo de columnas
-
   doc.autoTable({
-    head: [group1.map((col) => col.label)],
+    head: [selectedColumns.map((col) => col.label)],
     body: rows.value.map((row) =>
-      group1.map((col) =>
+      selectedColumns.map((col) =>
         typeof col.field === "function" ? col.field(row) : row[col.field]
       )
     ),
     startY: 30,
   });
 
-  doc.autoTable({
-    head: [group2.map((col) => col.label)],
-    body: rows.value.map((row) =>
-      group2.map((col) =>
-        typeof col.field === "function" ? col.field(row) : row[col.field]
-      )
-    ),
-    startY: doc.lastAutoTable.finalY + 10,
-  });
-
   doc.save("Reporte_Siembra.pdf");
 };
+
 let traerSiembras = async () => {
   let siembras = await useSiembras.getSiembras();
   cultivos.value = await useCultivos.getCultivos();
@@ -210,5 +198,4 @@ onMounted(() => {
   traerSiembras();
 });
 </script>
-<style scoped>
-</style>
+<style scoped></style>

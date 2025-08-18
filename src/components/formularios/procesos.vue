@@ -328,7 +328,7 @@
       <q-btn
         color="primary"
         label="Volver"
-        @click="router.push('/parcelas')"
+        @click="router.push('/procesos')"
       ></q-btn>
     </div>
     <div :class="registroFallido ? 'error1' : 'error'">

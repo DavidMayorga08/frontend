@@ -1,7 +1,12 @@
 <template>
   <div class="app">
     <div class="q-pa-md">
-      <q-table title="Parcelas" :rows="parcelasFiltradas" :columns="columns" row-key="name">
+      <q-table
+        title="Parcelas"
+        :rows="parcelasFiltradas"
+        :columns="columns"
+        row-key="name"
+      >
         <template v-slot:top-right>
           <q-input
             v-model="filtroNumeroParcela"
@@ -26,7 +31,7 @@
           <q-btn
             color="negative"
             outline
-            label="Clean"
+            label="Limpiar"
             icon="clear_all"
             class="q-mr-sm limpiar"
             @click="limpiarFiltros"
@@ -91,7 +96,7 @@
   </div>
 </template>
 <script setup>
-import { ref, onMounted ,computed } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
 import { useParcelasStore } from "../stores/parcelas.js";
@@ -157,43 +162,24 @@ let exportarPDF = () => {
   doc.setFontSize(18);
   doc.text("Reporte de Parcelas", 14, 22);
 
-  const headers = columns.map((col) => col.label);
-  const data = rows.value.map((row) =>
-    columns.map((col) => {
-      if (typeof col.field === "function") {
-        return col.field(row);
-      }
-      return row[col.field];
-    })
+  // Filtrar columnas, excluyendo Observaciones y Acciones
+  const selectedColumns = columns.filter(
+    (col) => col.name !== "Observaciones" && col.name !== "Acciones"
   );
 
-  const group1 = columns.slice(0, 5);
-  const group2 = columns.slice(5);
-
-  // Tabla 1
   doc.autoTable({
-    head: [group1.map((col) => col.label)],
+    head: [selectedColumns.map((col) => col.label)],
     body: rows.value.map((row) =>
-      group1.map((col) =>
+      selectedColumns.map((col) =>
         typeof col.field === "function" ? col.field(row) : row[col.field]
       )
     ),
     startY: 30,
   });
 
-  // Tabla 2 (debajo de la primera tabla)
-  doc.autoTable({
-    head: [group2.map((col) => col.label)],
-    body: rows.value.map((row) =>
-      group2.map((col) =>
-        typeof col.field === "function" ? col.field(row) : row[col.field]
-      )
-    ),
-    startY: doc.lastAutoTable.finalY + 10, // Asegurar que no se sobreponga
-  });
-
   doc.save("Reporte_Parcela.pdf");
 };
+
 let traerParcelas = async () => {
   let parcelas = await useParcelas.getParcelas();
   console.log(parcelas);
@@ -212,7 +198,6 @@ let editar = (parcela) => {
 let finca = ref("");
 const filtroNumeroParcela = ref(null);
 const filtroEstado = ref(null);
-
 
 const parcelasFiltradas = computed(() => {
   return rows.value.filter((p) => {

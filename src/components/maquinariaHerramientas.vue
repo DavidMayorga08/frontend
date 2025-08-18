@@ -32,7 +32,7 @@
           <q-btn
             color="negative"
             outline
-            label="Clean"
+            label="Limpiar"
             icon="clear_all"
             class="q-mr-sm limpiar"
             @click="limpiarFiltros"
@@ -97,27 +97,27 @@
               <q-card-section>
                 <q-input
                   filled
-                  v-model="Fecha"
+                  v-model="formMantenimiento.Fecha"
                   label="Fecha"
                   type="date"
                   class="q-mb-md"
                 />
                 <q-input
                   filled
-                  v-model="Responsable"
+                  v-model="formMantenimiento.Responsable"
                   label="Responsable"
                   class="q-mb-md"
                 />
                 <q-input
                   filled
-                  v-model="Observaciones"
+                  v-model="formMantenimiento.Observaciones"
                   label="Observaciones"
                   type="text"
                   class="q-mb-md"
                 />
                 <q-input
                   filled
-                  v-model="Precio"
+                  v-model="formMantenimiento.Precio"
                   label="Precio"
                   type="number"
                   class="q-mb-md"
@@ -125,11 +125,15 @@
               </q-card-section>
               <q-card-actions align="right">
                 <q-btn flat label="Cancelar" color="negative" v-close-popup />
-                <q-btn flat label="Guardar" color="primary" />
+                <q-btn
+                  flat
+                  label="Guardar"
+                  color="primary"
+                  @click="guardarMantenimiento"
+                />
               </q-card-actions>
             </q-card>
           </q-dialog>
-
           <q-dialog v-model="showDesinfeccionModal">
             <q-card class="q-pa-md" style="min-width: 600px; max-width: 800px">
               <q-card-section>
@@ -138,14 +142,14 @@
               <q-card-section>
                 <q-input
                   filled
-                  v-model="Fecha"
+                  v-model="formDesinfeccion.Fecha"
                   label="Fecha"
                   type="date"
                   class="q-mb-md"
                 />
                 <q-select
                   filled
-                  v-model="insumo"
+                  v-model="formDesinfeccion.Insumo"
                   :options="insumos"
                   label="Insumos"
                   option-label="Nombre"
@@ -156,14 +160,19 @@
                 />
                 <q-input
                   filled
-                  v-model="Responsable"
+                  v-model="formDesinfeccion.Responsable"
                   label="Responsable"
                   class="q-mb-md"
                 />
               </q-card-section>
               <q-card-actions align="right">
                 <q-btn flat label="Cancelar" color="negative" v-close-popup />
-                <q-btn flat label="Guardar" color="primary" />
+                <q-btn
+                  flat
+                  label="Guardar"
+                  color="primary"
+                  @click="guardarDesinfeccion"
+                />
               </q-card-actions>
             </q-card>
           </q-dialog>
@@ -179,6 +188,7 @@ const router = useRouter();
 import { useMaquinariaHerramientasStore } from "../stores/maquinariaHerramientas.js";
 import { useProveedoresStore } from "../stores/proveedores.js";
 import { useInsumosStore } from "../stores/insumos.js";
+import Swal from "sweetalert2";
 
 let useMaquinariaHerramientas = useMaquinariaHerramientasStore();
 let useProveedores = useProveedoresStore();
@@ -197,11 +207,11 @@ let showDesinfeccionModal = ref(false);
 
 let selectedRow = ref(null);
 
-let openMaintenanceModal = (row) => {
+const openMaintenanceModal = (row) => {
   selectedRow.value = row;
   showMaintenanceModal.value = true;
 };
-let openDesinfeccionModal = (row) => {
+const openDesinfeccionModal = (row) => {
   selectedRow.value = row;
   showDesinfeccionModal.value = true;
 };
@@ -245,8 +255,9 @@ let columns = [
     label: "Fecha de Compra",
     align: "center",
     headerStyle: "font-weight: bold;",
-    field: (row) => row.Fecha_compra.split("T")[0],
+    field: (row) => (row.Fecha_compra ? row.Fecha_compra.split("T")[0] : ""),
   },
+
   {
     name: "Observaciones",
     label: "Observaciones",
@@ -268,25 +279,7 @@ let columns = [
     headerStyle: "font-weight: bold;",
     field: (row) => formatCurrency(row.Total),
   },
-  //   {
-  //     name: "Mantenimiento",
-  //     label: "Mantenimiento",
-  //     align: "center",
-  //     field: "Mantenimiento",
-  //   },
-  //   {
-  //     name: "Desinfeccion",
-  //     label: "Desinfección",
-  //     align: "center",
-  //     field: "Desinfeccion",
-  //   },
-  // {
-  //   name: "Historial_modificacion",
-  //   label: "Historial de Modificación",
-  //   align: "center",
-  //   headerStyle: "font-weight: bold;",
-  //   field: "Historial_modificacion",
-  // },
+
   {
     name: "Acciones",
     label: "",
@@ -327,6 +320,18 @@ const maquinariaFiltradas = computed(() => {
     return coincideNumero && coincideEstado;
   });
 });
+let formMantenimiento = ref({
+  Fecha: "",
+  Responsable: "",
+  Observaciones: "",
+  Precio: 0,
+});
+
+let formDesinfeccion = ref({
+  Fecha: "",
+  insumo: "",
+  Responsable: "",
+});
 
 const cargarUsuarios = async () => {
   try {
@@ -345,6 +350,52 @@ const limpiarFiltros = () => {
   filtroNombre.value = null;
   filtroTipo.value = null;
 };
+const guardarMantenimiento = async () => {
+  try {
+    await useMaquinariaHerramientas.addMantenimiento(
+      selectedRow.value._id,
+      formMantenimiento.value
+    );
+    Swal.fire("Éxito", "Mantenimiento agregado correctamente", "success");
+
+    formMantenimiento.value = {
+      fecha: "",
+      descripcion: "",
+      responsable: "",
+      costo: "",
+    };
+
+    showMaintenanceModal.value = false;
+    getMaquinariaHerramientas();
+  } catch (error) {
+    console.error(error);
+    Swal.fire("Error", "No se pudo guardar el mantenimiento", "error");
+  }
+};
+
+const guardarDesinfeccion = async () => {
+  try {
+    await useMaquinariaHerramientas.addDesinfeccion(
+      selectedRow.value._id,
+      formDesinfeccion.value
+    );
+    Swal.fire("Éxito", "Desinfección agregada correctamente", "success");
+
+    formDesinfeccion.value = {
+      fecha: "",
+      descripcion: "",
+      responsable: "",
+      productos: "",
+    };
+
+    showDesinfeccionModal.value = false;
+    getMaquinariaHerramientas();
+  } catch (error) {
+    console.error(error);
+    Swal.fire("Error", "No se pudo guardar la desinfección", "error");
+  }
+};
+
 onMounted(async () => {
   finca.value = localStorage.getItem("Finca");
   console.log(finca.value);
