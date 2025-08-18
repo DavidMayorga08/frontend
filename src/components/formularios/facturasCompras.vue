@@ -858,6 +858,7 @@ let enviar = async () => {
       };
     }
     console.log(compra);
+    await facturasComprasStore.putFacturaCompra(compra);
     spinner.value = false;
     registroExitoso.value = true;
     text.value = "Factura editada exitosamente";
