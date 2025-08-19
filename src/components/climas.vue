@@ -256,10 +256,28 @@ let traerClimas = async () => {
 
 
 
-let crear =
+let crear = async () => {
+  // Lógica para crear un nuevo clima
+  let nuevoClima = {
+    Id_finca: finca.value,
+    Temperatura: temperatura.value,
+    Fecha: new Date().toISOString(),
+    Clima: descripcion.value,
+    Humedad: humedad.value,
+    Velocidad_viento: velocidadViento.value,
+    Nubosidad: nubosidad.value,
+  };
+  spinner.value = true;
+  await useClimas.postClima(nuevoClima);
+  traerClimas();
+  spinner.value = false;
+  text.value = "Clima registrado correctamente";
+  registroFallido.value = false;
+}
 
 onMounted(() => {
-  finca.value = localStorage.getItem("finca");
+  finca.value = localStorage.getItem("Finca");
+  console.log(finca.value);
   traerClimas();
 });
 </script>
