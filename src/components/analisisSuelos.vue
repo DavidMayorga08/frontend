@@ -31,7 +31,7 @@
           <q-btn
             color="negative"
             outline
-            label="Clean"
+            label="Limpiar"
             icon="clear_all"
             class="q-mr-sm limpiar"
             @click="limpiarFiltros"
@@ -166,19 +166,7 @@ let columns = [
     headerStyle: "font-weight: bold;",
     field: "Estado",
   },
-  // {
-  //   name: "Resultado",
-  //   label: "Resultado",
-  //   align: "center",
-  //   field: "Resultado",
-  // },
-  {
-    name: "Historial_modificaciones",
-    label: "Historial Modificaciones",
-    align: "center",
-    headerStyle: "font-weight: bold;",
-    field: "Historial_modificaciones",
-  },
+
   {
     name: "Acciones",
     label: "",
@@ -194,41 +182,21 @@ let exportarPDF = () => {
   doc.setFontSize(18);
   doc.text("Reporte de Analisis Suelo", 14, 22);
 
-  const headers = columns.map((col) => col.label);
-  const data = rows.value.map((row) =>
-    columns.map((col) => {
-      if (typeof col.field === "function") {
-        return col.field(row);
-      }
-      return row[col.field];
-    })
-  );
-
-  const group1 = columns.slice(0, 5);
-  const group2 = columns.slice(5); // Segundo grupo de columnas
+  const columnasImportantes = columns.slice(0, 5);
 
   doc.autoTable({
-    head: [group1.map((col) => col.label)],
-    body: rows.value.map((row) =>
-      group1.map((col) =>
+    head: [columnasImportantes.map(col => col.label)],
+    body: rows.value.map(row =>
+      columnasImportantes.map(col =>
         typeof col.field === "function" ? col.field(row) : row[col.field]
       )
     ),
     startY: 30,
   });
 
-  doc.autoTable({
-    head: [group2.map((col) => col.label)],
-    body: rows.value.map((row) =>
-      group2.map((col) =>
-        typeof col.field === "function" ? col.field(row) : row[col.field]
-      )
-    ),
-    startY: doc.lastAutoTable.finalY + 10,
-  });
-
   doc.save("Reporte_Analisis_Suelo.pdf");
 };
+
 let traerAnalisisSuelos = async () => {
   let response = await useAnalisisSuelos.getAnalisisSuelos();
   parcelas.value = await useParcelas.getParcelas();

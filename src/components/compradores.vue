@@ -23,7 +23,7 @@
           <q-btn
             color="negative"
             outline
-            label="Clean"
+            label="Limpiar"
             icon="clear_all"
             class="q-mr-sm limpiar"
             @click="limpiarFiltros"
@@ -79,7 +79,7 @@
   </div>
 </template>
 <script setup>
-import { ref, onMounted,computed } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useCompradoresStore } from "../stores/compradores.js";
 import { useRouter } from "vue-router";
 const router = useRouter();
@@ -131,25 +131,7 @@ let columns = [
     headerStyle: "font-weight: bold;",
     field: (row) => row.Fecha_registro.split("T")[0],
   },
-  // {
-  //     name: "Datos_natural",
-  //     label: "Datos Natural",
-  //     align: "center",
-  //     field: "Datos_natural",
-  // },
-  // {
-  //     name: "Datos_juridica",
-  //     label: "Datos Jurídica",
-  //     align: "center",
-  //     field: "Datos_juridica",
-  // },
-  // {
-  //   name: "Historial_modificacion",
-  //   label: "Historial Modificación",
-  //   align: "center",
-  //   headerStyle: "font-weight: bold;",
-  //   field: "Historial_modificacion",
-  // },
+
   {
     name: "Acciones",
     label: "",
@@ -172,41 +154,22 @@ let exportarPDF = () => {
   doc.setFontSize(18);
   doc.text("Compradores", 14, 22);
 
-  const headers = columns.map((col) => col.label);
-  const data = rows.value.map((row) =>
-    columns.map((col) => {
-      if (typeof col.field === "function") {
-        return col.field(row);
-      }
-      return row[col.field];
-    })
-  );
-
-  const group1 = columns.slice(0, 5);
-  const group2 = columns.slice(5); // Segundo grupo de columnas
+  // Solo las primeras 5 columnas (sin Acciones)
+  const columnasImportantes = columns.slice(0, 5);
 
   doc.autoTable({
-    head: [group1.map((col) => col.label)],
+    head: [columnasImportantes.map((col) => col.label)],
     body: rows.value.map((row) =>
-      group1.map((col) =>
+      columnasImportantes.map((col) =>
         typeof col.field === "function" ? col.field(row) : row[col.field]
       )
     ),
     startY: 30,
   });
 
-  doc.autoTable({
-    head: [group2.map((col) => col.label)],
-    body: rows.value.map((row) =>
-      group2.map((col) =>
-        typeof col.field === "function" ? col.field(row) : row[col.field]
-      )
-    ),
-    startY: doc.lastAutoTable.finalY + 10,
-  });
-
   doc.save("Compradores.pdf");
 };
+
 let crear = () => {
   router.push("/formCompradores");
 };
@@ -220,9 +183,9 @@ let finca = ref("");
 const filtroTipo = ref(null);
 const compradoresFiltradas = computed(() => {
   return rows.value.filter((p) => {
-
-    const coincideEstado = !filtroTipo.value || p.Tipo_comprador === filtroTipo.value;
-    return  coincideEstado;
+    const coincideEstado =
+      !filtroTipo.value || p.Tipo_comprador === filtroTipo.value;
+    return coincideEstado;
   });
 });
 const limpiarFiltros = () => {

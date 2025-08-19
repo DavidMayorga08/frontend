@@ -23,7 +23,7 @@
               />
             </svg>
           </q-btn>
-             <q-btn
+          <q-btn
             class="q-mx-md"
             color="secondary"
             @click="exportarPDF"
@@ -163,45 +163,28 @@ let exportarPDF = () => {
   doc.setFontSize(18);
   doc.text("Control Plaga", 14, 22);
 
-  const headers = columns.map((col) => col.label);
-  const data = rows.value.map((row) =>
-    columns.map((col) => {
-      if (typeof col.field === "function") {
-        return col.field(row);
-      }
-      return row[col.field];
-    })
-  );
-
- const group1 = columns.slice(0, 5);
-  const group2 = columns.slice(5); // Segundo grupo de columnas
+  // Tomar solo las 5 primeras columnas
+  const columnasImportantes = columns.slice(0, 5);
 
   doc.autoTable({
-    head: [group1.map((col) => col.label)],
+    head: [columnasImportantes.map((col) => col.label)],
     body: rows.value.map((row) =>
-      group1.map((col) =>
+      columnasImportantes.map((col) =>
         typeof col.field === "function" ? col.field(row) : row[col.field]
       )
     ),
     startY: 30,
   });
 
-  doc.autoTable({
-    head: [group2.map((col) => col.label)],
-    body: rows.value.map((row) =>
-      group2.map((col) =>
-        typeof col.field === "function" ? col.field(row) : row[col.field]
-      )
-    ),
-    startY: doc.lastAutoTable.finalY + 10,
-  });
-
   doc.save("Control_Plagas.pdf");
 };
+
 let traerControlPlagas = async () => {
   let controlPlagas = await useControlPlagas.getControlPlagas();
   cultivos.value = await useCultivos.getCultivos();
-  rows.value = controlPlagas.filter((controlPlaga) => controlPlaga.Id_finca == finca.value);
+  rows.value = controlPlagas.filter(
+    (controlPlaga) => controlPlaga.Id_finca == finca.value
+  );
 };
 
 let crear = () => {

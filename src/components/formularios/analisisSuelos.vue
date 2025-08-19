@@ -290,10 +290,7 @@
               <label for="responsable">Responsable</label>
               <input type="text" class="input" v-model="responsable" />
             </div>
-            <div class="cont_inputs">
-              <label for="muestra">Muestra</label>
-              <input type="text" class="input" v-model="muestra" />
-            </div>
+          
             <div class="cont_inputs">
               <label for="laboratorio">Laboratorio</label>
               <input type="text" class="input" v-model="laboratorio" />

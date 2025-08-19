@@ -456,67 +456,67 @@ if (id.value) {
 }
 
 function validarCampos() {
-  if(cultivo.value == "") {
+  if (cultivo.value == "") {
     text.value = "El campo cultivo es obligatorio";
     registroFallido.value = true;
     ocultar();
     return false;
   }
-  if(!responsable.value.trim()) {
+  if (!responsable.value.trim()) {
     text.value = "El campo responsable es obligatorio";
     registroFallido.value = true;
     ocultar();
     return false;
   }
-  if(!fecha.value.trim()) {
+  if (!fecha.value.trim()) {
     text.value = "El campo fecha es obligatorio";
     registroFallido.value = true;
     ocultar();
     return false;
   }
-  if(!String(dias_transplante.value).trim()) {
+  if (!String(dias_transplante.value).trim()) {
     text.value = "El campo dias del transplante es obligatorio";
     registroFallido.value = true;
     ocultar();
     return false;
   }
-  if(!estado_fenologico.value.trim()) {
+  if (!estado_fenologico.value.trim()) {
     text.value = "El campo estado fenologico es obligatorio";
     registroFallido.value = true;
     ocultar();
     return false;
   }
-  if(!hora_inicio.value.trim()) {
+  if (!hora_inicio.value.trim()) {
     text.value = "El campo hora de inicio es obligatorio";
     registroFallido.value = true;
     ocultar();
     return false;
   }
-  if(!hora_fin.value.trim()) {
+  if (!hora_fin.value.trim()) {
     text.value = "El campo hora de finalizacion es obligatorio";
     registroFallido.value = true;
     ocultar();
     return false;
   }
-  if(!String(dosis.value).trim()) {
+  if (!String(dosis.value).trim()) {
     text.value = "El campo dosis es obligatorio";
     registroFallido.value = true;
     ocultar();
     return false;
   }
-  if(!String(cantidad_agua.value).trim()) {
+  if (!String(cantidad_agua.value).trim()) {
     text.value = "El campo cantidad de agua es obligatorio";
     registroFallido.value = true;
     ocultar();
     return false;
   }
-  if(!metodo_riego.value.trim()) {
+  if (!metodo_riego.value.trim()) {
     text.value = "El campo metodo de riego es obligatorio";
     registroFallido.value = true;
     ocultar();
     return false;
   }
-  if(!observaciones.value.trim()) {
+  if (!observaciones.value.trim()) {
     text.value = "El campo observaciones es obligatorio";
     registroFallido.value = true;
     ocultar();
@@ -526,7 +526,7 @@ function validarCampos() {
 }
 
 let enviar = async () => {
-  if(!validarCampos()) {
+  if (!validarCampos()) {
     return;
   }
 
@@ -536,16 +536,16 @@ let enviar = async () => {
     Documento: mod.value.Documento,
     Correo: mod.value.Email,
     Telefono: mod.value.Telefono,
-  }
+  };
 
-  if(id.value){
+  if (id.value) {
     console.log("editar");
     spinner.value = true;
 
     let modifica = {
       info,
       Fecha: new Date().toISOString(),
-    }
+    };
 
     let riego = {
       Id_finca: id_finca.value,
@@ -561,7 +561,7 @@ let enviar = async () => {
       Metodo_riego: metodo_riego.value,
       Observaciones: observaciones.value,
       Historial_modificacion: [modifica],
-    }
+    };
     console.log(riego);
     await riegosStore.putRiego(id.value, riego);
     spinner.value = false;
@@ -575,11 +575,11 @@ let enviar = async () => {
     let modifica = {
       info,
       Fecha: new Date().toISOString(),
-    }
+    };
 
     let riego = {
       Id_finca: id_finca.value,
-      Id_cultivo: cultivo.value,
+      Id_cultivo: cultivo.value._id,
       Responsable: responsable.value,
       Fecha: fecha.value,
       Dias_transplante: dias_transplante.value,
@@ -591,7 +591,7 @@ let enviar = async () => {
       Metodo_riego: metodo_riego.value,
       Observaciones: observaciones.value,
       Historial_modificacion: [modifica],
-    }
+    };
     console.log(riego);
     await riegosStore.postRiego(riego);
     spinner.value = false;
@@ -599,14 +599,16 @@ let enviar = async () => {
     text.value = "Riego creado correctamente";
     ocultar();
   }
-}
+};
 
 onMounted(async () => {
   spinner.value = true;
   cultivos.value = await cultivosStore.getCultivos();
-  if(id.value) {
+  if (id.value) {
     let riego = await riegosStore.getRiego(id.value);
-    cultivo.value = cultivos.value.find(cultivo => cultivo._id == riego.Id_cultivo);
+    cultivo.value = cultivos.value.find(
+      (cultivo) => cultivo._id == riego.Id_cultivo
+    );
     responsable.value = riego.Responsable;
     fecha.value = riego.Fecha.split("T")[0];
     dias_transplante.value = riego.Dias_transplante;

@@ -15,8 +15,8 @@ import 'quasar/src/css/index.sass'
 
 import App from './App.vue'
 
-axios.defaults.baseURL = 'https://backend-agroforma.onrender.com'
-// axios.defaults.baseURL="http://localhost:3000/"
+// axios.defaults.baseURL = 'https://backend-agroforma.onrender.com'
+axios.defaults.baseURL="http://localhost:3000/"
 
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedState)

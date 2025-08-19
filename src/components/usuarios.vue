@@ -24,7 +24,7 @@
           <!-- Filtro por estado -->
           <q-select
             v-model="filtroEstado"
-            :options="['Activo', 'Inactivo']"
+            :options="['activo', 'Inactivo']"
             label="Filtrar por estado"
             dense
             outlined
@@ -35,7 +35,7 @@
           <q-btn
             color="negative"
             outline
-            label="Clean"
+            label="Limpiar"
             icon="clear_all"
             class="q-mr-sm limpiar"
             @click="limpiarFiltros"
@@ -201,38 +201,18 @@ let exportarPDF = () => {
   doc.setFontSize(18);
   doc.text("Reporte de Usuarios", 14, 22);
 
-  const headers = columns.map((col) => col.label);
-  const data = rows.value.map((row) =>
-    columns.map((col) => {
-      if (typeof col.field === "function") {
-        return col.field(row);
-      }
-      return row[col.field];
-    })
+  const selectedColumns = columns.filter((col) =>
+    ["Nombre", "Email", "Rol", "Estado", "Fecha_creacion"].includes(col.name)
   );
 
-  const group1 = columns.slice(0, 5); // Primer grupo de columnas
-  const group2 = columns.slice(5); // Segundo grupo de columnas
-
-  // Tabla 1
   doc.autoTable({
-    head: [group1.map((col) => col.label)],
+    head: [selectedColumns.map((col) => col.label)],
     body: rows.value.map((row) =>
-      group1.map((col) =>
+      selectedColumns.map((col) =>
         typeof col.field === "function" ? col.field(row) : row[col.field]
       )
     ),
     startY: 30,
-  });
-
-  doc.autoTable({
-    head: [group2.map((col) => col.label)],
-    body: rows.value.map((row) =>
-      group2.map((col) =>
-        typeof col.field === "function" ? col.field(row) : row[col.field]
-      )
-    ),
-    startY: doc.lastAutoTable.finalY + 10,
   });
 
   doc.save("Reporte_Usuarios.pdf");
