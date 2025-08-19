@@ -5,6 +5,7 @@ import { useLoginStore } from '../stores/login.js';
 
 export const useParcelasStore = defineStore('parcelas', () => {
     let token = ref(useLoginStore().user.token);
+    let parcelas = ref([]);
 
     let getParcelas = async () => {
         try {
@@ -15,6 +16,7 @@ export const useParcelasStore = defineStore('parcelas', () => {
                     }
                 }
             )
+            parcelas.value = res.data;
             return res.data;
         } catch (error) {
             console.log(error);
@@ -69,6 +71,7 @@ export const useParcelasStore = defineStore('parcelas', () => {
     }
 
     return {
+        parcelas,
         getParcelas, getParcela, postParcela, putParcela
     }
 });

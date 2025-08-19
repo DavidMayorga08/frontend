@@ -73,11 +73,40 @@
         </svg>
       </div>
     </div>
+    <div class="q-pa-md">
+      <q-table
+        title="Climas"
+        :rows="rows"
+        :columns="columns"
+        row-key="name"
+      >
+        <template v-slot:top-right>
+          <q-btn color="primary" @click="crear()">
+            <svg
+              version="1.1"
+              viewBox="0 0 2048 2048"
+              width="20"
+              height="20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                transform="translate(1e3)"
+                fill="#ffffff"
+                d="m0 0h45l3 2 16 6 15 8 10 8 9 8 10 13 6 10 6 15 4 16 1 9v826h828l17 3 15 5 16 9 10 8 8 7 12 16 8 16 5 14 2 1v46l-2 2-6 18-6 11-9 13-14 14-15 10-16 7-15 4-19 2h-819v822l-2 17-4 14-5 12-9 15-11 12-10 9-13 8-15 7-16 5h-41l-1-2-15-5-16-8-13-10-11-11-10-14-8-17-4-13-2-13v-828h-821l-18-2-15-4-17-8-14-10-12-12-10-14-8-16-6-18v-40h2l1-8 5-14 8-14 9-12h2l2-4 10-9 14-9 15-7 17-4 7-1h763l65-1 1-829 4-19 5-13 8-14 7-9 11-12 14-10 16-8 15-5z"
+              />
+            </svg>
+          </q-btn>
+        </template>
+      </q-table>
+    </div>
   </div>
 </template>
   <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import iconMap from "../assets/iconMap.js";
+import { useClimasStore } from "../stores/climas.js";
+
+let useClimas = useClimasStore();
 
 let spinner = ref(true);
 let registroFallido = ref(false);
@@ -171,6 +200,86 @@ if (navigator.geolocation) {
 } else {
   console.log("La geolocalización no es soportada por este navegador.");
 }
+
+let columns = [
+  {
+    name: "Temperatura",
+    label: "Temperatura",
+    align: "center",
+    field: "Temperatura",
+    headerStyle: "font-weight: bold;",
+  },
+  {
+    name: "Fecha",
+    label: "Fecha",
+    align: "center",
+    field: (row) => row.Fecha.split("T")[0],
+    headerStyle: "font-weight: bold;",
+  },
+  {
+    name: "Clima",
+    label: "Clima",
+    align: "center",
+    field: "Clima",
+    headerStyle: "font-weight: bold;",
+  },
+  {
+    name: "Humedad",
+    label: "Humedad",
+    align: "center",
+    field: "Humedad",
+    headerStyle: "font-weight: bold;",
+  },
+  {
+    name: "Velocidad_viento",
+    label: "Velocidad del viento",
+    align: "center",
+    field: "Velocidad_viento",
+    headerStyle: "font-weight: bold;",
+  },
+  {
+    name: "Nubosidad",
+    label: "Nubosidad",
+    align: "center",
+    field: "Nubosidad",
+    headerStyle: "font-weight: bold;",
+  }
+];
+
+let finca = ref("");
+let rows = ref([]);
+
+let traerClimas = async () => {
+  let response = await useClimas.getClimas();
+  rows.value = response.filter((clima) => clima.Id_finca === finca.value);
+}
+
+
+
+let crear = async () => {
+  // Lógica para crear un nuevo clima
+  let nuevoClima = {
+    Id_finca: finca.value,
+    Temperatura: temperatura.value,
+    Fecha: new Date().toISOString(),
+    Clima: descripcion.value,
+    Humedad: humedad.value,
+    Velocidad_viento: velocidadViento.value,
+    Nubosidad: nubosidad.value,
+  };
+  spinner.value = true;
+  await useClimas.postClima(nuevoClima);
+  traerClimas();
+  spinner.value = false;
+  text.value = "Clima registrado correctamente";
+  registroFallido.value = false;
+}
+
+onMounted(() => {
+  finca.value = localStorage.getItem("Finca");
+  console.log(finca.value);
+  traerClimas();
+});
 </script>
 <style scoped>
 * {

@@ -5,6 +5,7 @@ import { useLoginStore } from "../stores/login.js";
 
 export const useUsuariosStore = defineStore("usuarios", () => {
   let token = ref(useLoginStore().user.token);
+  let usuarios = ref([]);
 
   let getUsuarios = async () => {
     try {
@@ -13,6 +14,7 @@ export const useUsuariosStore = defineStore("usuarios", () => {
           token: token.value,
         },
       });
+      usuarios.value = res.data;
       return res.data;
     } catch (error) {
       console.error(error);
@@ -80,6 +82,7 @@ export const useUsuariosStore = defineStore("usuarios", () => {
   };
 
   return {
+    usuarios,
     getUsuarios,
     getUsuario,
     postUsuario,

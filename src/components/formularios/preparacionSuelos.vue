@@ -552,6 +552,57 @@ let enviar = async () => {
     Correo: mod.value.Email,
     Telefono: mod.value.Telefono,
   }
+
+  if(id.value){
+    console.log("Editar");
+    spinner.value = true;
+
+    let modifica = {
+      info,
+      Fecha: new Date().toISOString(),
+    }
+
+    let preparacionSuelo = {
+      Id_finca: id_finca.value,
+      Id_parcela: parcelas.value._id,
+      Responsable: responsable.value,
+      Prodcutos: prodcutos.value,
+      Observaciones: Observaciones.value,
+      Estado_suelo: Estado_Suelo.value,
+      Historial_modificacion: [modifica]
+    }
+    console.log(preparacionSuelo);
+    await preparacionSuelosStore.putPreparacionSuelo(id.value, preparacionSuelo);
+    spinner.value = false;
+    text.value = "Preparación de suelo editada correctamente";
+    registroExitoso.value = true;
+    ocultar();
+  } else {
+    console.log("Crear");
+    spinner.value = true;
+
+    let modifica = {
+      info,
+      Fecha: new Date().toISOString(),
+    }
+
+    let preparacionSuelo = {
+      Id_finca: id_finca.value,
+      Id_parcela: parcelas.value._id,
+      Responsable: responsable.value,
+      Prodcutos: prodcutos.value,
+      Observaciones: Observaciones.value,
+      Estado_suelo: Estado_Suelo.value,
+      Historial_modificacion: [modifica]
+    }
+
+    console.log(preparacionSuelo);
+    await preparacionSuelosStore.postPreparacionSuelo(preparacionSuelo);
+    spinner.value = false;
+    text.value = "Preparación de suelo creada correctamente";
+    registroExitoso.value = true;
+    ocultar();
+  }
 }
 
 onMounted(async () => {

@@ -125,25 +125,28 @@
       <p class="nombre_finca">{{ nombreFinca }}</p>
     </div>
 
-    <!-- Información de la finca -->
-    <div class="cont_info_finca">
-      <!-- Propietario -->
-      <div class="tarjeta">
-        <p class="label">👤 Propietario:</p>
-        <p class="valor">{{ nombrePropietario }}</p>
+    <div style="display: flex; gap: 2rem; align-items: flex-start;">
+      <div>
+        <!-- Información de la finca -->
+        <div class="cont_info_finca">
+          <!-- Propietario -->
+          <div class="tarjeta">
+            <p class="label">👤 Propietario:</p>
+            <p class="valor">{{ nombrePropietario }}</p>
+          </div>
+          <!-- Tipo de finca -->
+          <div class="tarjeta">
+            <p class="label">🌱 Tipo de finca:</p>
+            <p class="valor">{{ tipoFinca }}</p>
+          </div>
+        </div>
+        <!-- Ubicación -->
+        <div class="tarjeta tarjeta-ubicacion">
+          <p class="label">📍 Ubicación:</p>
+          <p class="valor">{{ ubicacion }}</p>
+        </div>
       </div>
-
-      <!-- Tipo de finca -->
-      <div class="tarjeta">
-        <p class="label">🌱 Tipo de finca:</p>
-        <p class="valor">{{ tipoFinca }}</p>
-      </div>
-    </div>
-
-    <!-- Ubicación -->
-    <div class="tarjeta tarjeta-ubicacion">
-      <p class="label">📍 Ubicación:</p>
-      <p class="valor">{{ ubicacion }}</p>
+      <estadisticas-menu />
     </div>
   </div>
   </div>
@@ -154,8 +157,10 @@ import { ref, onMounted, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 const router = useRouter();
 const route = useRoute();
+
 import { useLoginStore } from "../stores/login.js";
 import { useFincasStore } from "../stores/fincas.js";
+import estadisticasMenu from "./estadisticasMenu.vue";
 
 let useFinca = useFincasStore();
 
@@ -696,7 +701,6 @@ nav {
 .tarjeta-ubicacion {
   margin-top: 30px;
   width: 100%;
-  max-width: 500px;
 }
 
 /* Etiquetas */
