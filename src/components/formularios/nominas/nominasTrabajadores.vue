@@ -298,7 +298,7 @@
             </div>
             <div class="cont_inputs">
               <label for="metodo_pago">Método de Pago</label>
-              <select v-model="input">
+              <select class="input" v-model="input">
                 <option value="efectivo">Efectivo</option>
                 <option value="transferencia">Transferencia</option>
                 <option value="tarjeta">Tarjeta</option>
@@ -469,7 +469,7 @@ function validarCampos() {
     ocultar();
     return false;
   }
-  if (!metodo_pago.value.trim()) {
+  if (!metodo_pago.value === "") {
     registroFallido.value = true;
     text.value = "El método de pago no puede estar vacío";
     ocultar();

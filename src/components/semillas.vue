@@ -60,6 +60,11 @@ const router = useRouter();
 import { useSemillasStore } from "../stores/semillas.js";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+
+let formatoMiles = (value) => {
+  return new Intl.NumberFormat("es-CO").format(value);
+};
+
 let useSemillas = useSemillasStore();
 
 let columns = [
@@ -131,7 +136,7 @@ let columns = [
     label: "Cantidad de semillas",
     align: "center",
     headerStyle: "font-weight: bold;",
-    field: "Cantidad",
+    field: (row) => `${formatoMiles(row.Cantidad)}`,
   },
   {
     name: "Condiciones_almacenamiento",

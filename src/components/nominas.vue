@@ -572,7 +572,7 @@ let columnsTickets = [
     headerStyle: "font-weight: bold;",
     field: (row) => {
       let pago = rowsPagos.value.find((pago) => pago._id === row.Id_pago);
-      return pago.Monto_total;
+      return formatCurrency(pago.Monto_total);
     },
   },
   {
