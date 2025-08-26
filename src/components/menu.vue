@@ -34,7 +34,7 @@
           />
         </svg>
       </label>
-      <input type="checkbox" id="btn-nav" v-model="check"/>
+      <input type="checkbox" id="btn-nav" v-model="check" />
 
       <div class="user-profile-button">
         <button title="Ver perfil" @click="verPerfil()">
@@ -74,6 +74,9 @@
                 <a @click="ventana(item)">{{ item }}</a>
               </li>
             </ul>
+          </li>
+          <li v-if="route.path !== '/menu'" class="menu-item">
+            <a @click="volverInicio">Menu</a>
           </li>
         </ul>
       </nav>
@@ -332,7 +335,12 @@ let nombrePropietario = ref("");
 let tipoFinca = ref("");
 let ubicacion = ref("");
 
-onMounted(async() => {
+let volverInicio = () => {
+  router.push("/menu");
+  check.value = false;
+};
+
+onMounted(async () => {
   if (route.path === "/menu") {
     bienvenida.value = true;
   }
@@ -677,7 +685,7 @@ nav {
 .nombre_finca {
   font-size: 46px;
   font-weight: bold;
-  color: #4CAF50;
+  color: #4caf50;
   text-align: center;
 }
 
