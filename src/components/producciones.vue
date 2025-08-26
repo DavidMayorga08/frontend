@@ -114,10 +114,13 @@ let columns = [
     align: "center",
     headerStyle: "font-weight: bold;",
     field: (row) => {
-      let cultivo = cultivos.value.find(
-        (cultivo) => cultivo._id === row.Id_cultivo
-      );
-      return cultivo ? cultivo.Nombre : "";
+      // Si el objeto completo de cultivo viene en row.Id_cultivo, extrae el nombre
+      if (row.Id_cultivo && typeof row.Id_cultivo === "object" && row.Id_cultivo.Nombre) {
+        return row.Id_cultivo.Nombre;
+      }
+      // Si solo viene el id, busca en cultivos
+      const cultivo = cultivos.value.find(c => c._id === row.Id_cultivo);
+      return cultivo ? cultivo.Nombre : row.Id_cultivo;
     },
   },
   {

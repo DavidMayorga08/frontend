@@ -100,6 +100,10 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 let useFertilizantes = useFertilizanteStore();
 
+let formatoMiles = (value) => {
+  return new Intl.NumberFormat("es-CO").format(value);
+};
+
 let useInsumos = useInsumosStore();
 
 let insumos = ref([]);
@@ -147,7 +151,7 @@ let columns = [
     label: "Cantidad",
     align: "center",
     headerStyle: "font-weight: bold;",
-    field: "Cantidad",
+    field: (row) => `${formatoMiles(row.Cantidad)}`,
   },
   {
     name: "Id_insumo",

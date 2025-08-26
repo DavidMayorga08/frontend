@@ -102,6 +102,10 @@ let useElaboracionSustratos = useElaboracionSustratosStore();
 
 let useCultivos = useCultivosStore();
 
+let formatoMiles = (value) => {
+  return new Intl.NumberFormat("es-CO").format(value);
+};
+
 let cultivos = ref([]);
 const opcionesNombres = ref([]);
 const opcionesTipoCultivo = ref([]);
@@ -158,7 +162,7 @@ let columns = [
     label: "Cantidad Producida",
     align: "center",
     headerStyle: "font-weight: bold;",
-    field: "Cantidad_producida",
+    field: (row) => `${formatoMiles(row.Cantidad_producida)}`,
   },
   {
     name: "Responsable",

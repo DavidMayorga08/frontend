@@ -301,8 +301,8 @@
               <input type="text" class="input" v-model="origen" />
             </div>
             <div class="cont_inputs">
-              <label for="poder_germinativo">Germinacion</label>
-              <input type="text" class="input" v-model="poder_germinativo" />
+              <label for="poder_germinativo">Poder Germinativo</label>
+              <input type="number" class="input" v-model="poder_germinativo" />
             </div>
             <div class="cont_inputs">
               <label for="observaciones">Observaciones</label>

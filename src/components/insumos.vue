@@ -109,6 +109,10 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 let useInsumos = useInsumosStore();
 
+let formatoMiles = (value) => {
+  return new Intl.NumberFormat("es-CO").format(value);
+};
+
 let useProveedores = useProveedoresStore();
 
 let proveedores = ref([]);
@@ -172,7 +176,7 @@ let columns = [
     label: "Cantidad",
     align: "center",
     headerStyle: "font-weight: bold;",
-    field: "Cantidad",
+    field: (row) => `${formatoMiles(row.Cantidad)}`,
   },
   {
     name: "Unidad",

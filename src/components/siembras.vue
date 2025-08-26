@@ -25,6 +25,11 @@
             icon="picture_as_pdf"
           />
         </template>
+        <template v-slot:body-cell-Cantidad="props">
+          <q-td :props="props">
+            {{ formatoMiles(props.row.Cantidad) }}
+          </q-td>
+        </template>
         <template v-slot:body-cell-Acciones="props">
           <q-td :props="props">
             <q-btn color="secondary" @click="editar(props.row)">
@@ -62,6 +67,10 @@ import { useCultivosStore } from "../stores/cultivos.js";
 import { useSemillasStore } from "../stores/semillas.js";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+
+let formatoMiles = (value) => {
+  return new Intl.NumberFormat("es-CO").format(value);
+};
 
 let useSiembras = useSiembrasStore();
 let useCultivos = useCultivosStore();

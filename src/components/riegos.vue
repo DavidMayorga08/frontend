@@ -64,6 +64,10 @@ import "jspdf-autotable";
 let useRiegos = useRiegosStore();
 let useCultivos = useCultivosStore();
 
+let formatoMiles = (value) => {
+  return new Intl.NumberFormat("es-CO").format(value);
+};
+
 let cultivos = ref([]);
 
 let columns = [
@@ -133,7 +137,7 @@ let columns = [
     label: "Cantidad Agua",
     align: "center",
     headerStyle: "font-weight: bold;",
-    field: "Cantidad_agua",
+    field: (row) => `${formatoMiles(row.Cantidad_agua)}`,
   },
   {
     name: "Metodo_riego",

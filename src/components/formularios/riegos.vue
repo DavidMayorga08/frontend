@@ -300,21 +300,21 @@
             </div>
             <div class="cont_inputs">
               <label for="hora_inicio">Hora de inicio</label>
-              <input type="text" class="input" v-model="hora_inicio" />
+              <input type="time" class="input" v-model="hora_inicio" />
             </div>
           </div>
           <div class="part2">
             <div class="cont_inputs">
               <label for="hora_fin">Hora de finalizacion</label>
-              <input type="text" class="input" v-model="hora_fin" />
+              <input type="time" class="input" v-model="hora_fin" />
             </div>
             <div class="cont_inputs">
               <label for="dosis">Dosis</label>
-              <input type="text" class="input" v-model="dosis" />
+              <input type="number" class="input" v-model="dosis" />
             </div>
             <div class="cont_inputs">
               <label for="cantidad_agua">Cantidad de agua</label>
-              <input type="text" class="input" v-model="cantidad_agua" />
+              <input type="number" class="input" v-model="cantidad_agua" />
             </div>
             <div class="cont_inputs">
               <label for="metodo_riego">Metodo de riego</label>
