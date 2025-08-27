@@ -39,6 +39,23 @@ let text = ref("");
 
 const cantidadExistente = ref({});
 
+const cantidadFormatted = ref("");
+const precioFormatted = ref("");
+
+const numberFormat = new Intl.NumberFormat("es-CO");
+
+const formatCantidad = (val) => {
+  // elimina caracteres no numéricos
+  const num = val.replace(/\D/g, "");
+  cantidad.value = Number(num); // valor real (sin puntos)
+  cantidadFormatted.value = num ? numberFormat.format(num) : "";
+};
+
+const formatPrecio = (val) => {
+  const num = val.replace(/\D/g, "");
+  precio.value = Number(num); // valor real (sin puntos)
+  precioFormatted.value = num ? numberFormat.format(num) : "";
+};
 const metodoPago = ref({
   Tipo: "",
   Detalles: {
@@ -215,6 +232,8 @@ const agregarProducto = () => {
   productoSeleccionado.value = null;
   cantidad.value = null;
   precio.value = null;
+  cantidadFormatted.value = "";
+  precioFormatted.value = "";
 };
 
 const actualizarTotalProducto = (producto) => {
@@ -739,21 +758,21 @@ onMounted(() => {
             </q-col>
             <q-col cols="12" sm="4" style="width: 20%">
               <q-input
-                v-model="cantidad"
+                v-model="cantidadFormatted"
                 label="Cantidad"
-                type="number"
-                style="margin-top: 20px"
+                style="margin-top: 20px; width: 100%"
+                @update:model-value="formatCantidad"
               />
             </q-col>
           </q-row>
 
           <q-row class="inputAgregar">
-            <q-col cols="12" sm="4" class="width: 20%;">
+            <q-col cols="12" sm="4" style="width: 20%">
               <q-input
-                v-model="precio"
+                v-model="precioFormatted"
                 label="Precio"
-                type="number"
                 style="margin-top: 20px; width: 100%"
+                @update:model-value="formatPrecio"
               />
             </q-col>
             <q-col cols="6" sm="4" style="width: 40%" class="inputAgregar2">

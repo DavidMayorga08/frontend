@@ -87,6 +87,12 @@
               class="q-mx-md"
               @click="openDesinfeccionModal(props.row)"
             />
+            <q-btn
+              color="secondary"
+              icon="visibility"
+              class="q-mx-md"
+              @click="openMantenimientoModal(props.row)"
+            />
           </q-td>
 
           <q-dialog v-model="showMaintenanceModal">
@@ -176,6 +182,66 @@
               </q-card-actions>
             </q-card>
           </q-dialog>
+          <q-dialog v-model="HerramientaMaquinariaModal">
+            <q-card class="q-pa-md" style="min-width: 600px; max-width: 800px">
+              <q-card-section>
+                <div class="text-h6">Mantenimientos y Limpiezas</div>
+              </q-card-section>
+              <q-card-section>
+                <div class="text-h6">Historial de Mantenimiento</div>
+                <q-list bordered separator>
+                  <q-item
+                    v-for="(m, index) in selectedRow.Mantenimiento"
+                    :key="index"
+                  >
+                    <q-item-section>
+                      <div>
+                        <strong>Fecha:</strong>
+                        {{ new Date(m.Fecha).toLocaleDateString() }}
+                      </div>
+                      <div>
+                        <strong>Responsable:</strong> {{ m.Responsable }}
+                      </div>
+                      <div>
+                        <strong>Observaciones:</strong> {{ m.Observaciones }}
+                      </div>
+                      <div><strong>Precio:</strong> $ {{ m.Precio }}</div>
+                    </q-item-section>
+                  </q-item>
+                </q-list>
+              </q-card-section>
+
+              <q-card-section>
+                <div class="text-h6">Historial de Desinfección</div>
+                <q-list bordered separator>
+                  <q-item
+                    v-for="(d, index) in selectedRow.Desinfeccion"
+                    :key="index"
+                  >
+                    <q-item-section>
+                      <div>
+                        <strong>Fecha:</strong>
+                        {{ new Date(d.Fecha).toLocaleDateString() }}
+                      </div>
+                      <div>
+                        <strong>Responsable:</strong> {{ d.Responsable }}
+                      </div>
+                    </q-item-section>
+                  </q-item>
+                </q-list>
+              </q-card-section>
+
+              <q-card-actions align="right">
+                <q-btn flat label="Cancelar" color="negative" v-close-popup />
+                <q-btn
+                  flat
+                  label="Guardar"
+                  color="primary"
+                  @click="guardarDesinfeccion"
+                />
+              </q-card-actions>
+            </q-card>
+          </q-dialog>
         </template>
       </q-table>
     </div>
@@ -204,6 +270,7 @@ let formatCurrency = (value) => {
 
 let showMaintenanceModal = ref(false);
 let showDesinfeccionModal = ref(false);
+let HerramientaMaquinariaModal = ref(false);
 
 let selectedRow = ref(null);
 
@@ -215,27 +282,13 @@ const openDesinfeccionModal = (row) => {
   selectedRow.value = row;
   showDesinfeccionModal.value = true;
 };
+const openMantenimientoModal = (row) => {
+  selectedRow.value = row;
+  HerramientaMaquinariaModal.value = true;
+};
 let Proveedores = ref([]);
 
 let columns = [
-  {
-    name: "Id_proveedor",
-    label: "Proveedor",
-    align: "center",
-    headerStyle: "font-weight: bold;",
-    field: (row) => {
-      let proveedor = Proveedores.value.find(
-        (proveedor) => proveedor._id === row.Id_proveedor
-      );
-      if (proveedor.Tipo_proveedor === "Natural") {
-        return proveedor ? proveedor.Datos_natural[0].Nombre : "";
-      } else {
-        return proveedor
-          ? proveedor.Datos_juridico[0].Representante_legal[0].Nombre
-          : "";
-      }
-    },
-  },
   {
     name: "Nombre",
     label: "Nombre",
