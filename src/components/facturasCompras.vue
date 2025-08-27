@@ -31,7 +31,7 @@
             label="Excel Utilidad"
           />
         </template>
-        <template v-slot:body-cell-Acciones="props">
+        <!-- <template v-slot:body-cell-Acciones="props">
           <q-td :props="props">
             <q-btn color="secondary" @click="editar(props.row)">
               <svg
@@ -54,7 +54,7 @@
               </svg>
             </q-btn>
           </q-td>
-        </template>
+        </template> -->
       </q-table>
     </div>
   </div>
@@ -140,15 +140,15 @@ let columns = [
     label: "Método de Pago",
     align: "center",
     headerStyle: "font-weight: bold;",
-    field: "Metodo_pago.Tipo",
+    field: (row) => (row.Metodo_pago ? row.Metodo_pago.Tipo : ""),
   },
-  {
-    name: "Archivo_adjunto",
-    label: "Archivo Adjunto",
-    align: "center",
-    headerStyle: "font-weight: bold;",
-    field: "Archivo_adjunto.Nombre_archivo",
-  },
+  // {
+  //   name: "Archivo_adjunto",
+  //   label: "Archivo Adjunto",
+  //   align: "center",
+  //   headerStyle: "font-weight: bold;",
+  //   field: (row) => (row.Archivo_adjunto ? "Sí" : "No"),
+  // },
   {
     name: "Acciones",
     label: "",

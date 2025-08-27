@@ -91,6 +91,64 @@
             </q-btn>
           </q-td>
         </template>
+        <template v-slot:body-cell-Resultado="props">
+          <q-td :props="props">
+            <q-btn color="primary" @click="verResultados(props.row)">
+              <svg
+                version="1.0"
+                xmlns="http://www.w3.org/2000/svg"
+                width="21"
+                height="21"
+                viewBox="0 0 511.386142 340.660304"
+                preserveAspectRatio="xMidYMid meet"
+              >
+                <g
+                  transform="translate(-0.106148,426.505739) scale(0.100000,-0.100000)"
+                  fill="#ffffff"
+                  stroke="none"
+                >
+                  <path
+                    d="M2390 4260 c-992 -62 -1885 -647 -2327 -1525 -62 -124 -65 -133 -61-188 4 -47 16 -81 62 -169 238 -457 588 -835 1022 -1104 444 -275 944 -416 1474 -416 459 1 844 91 1249 293 297 148 491 288 732 528 228 228 376 430 518 704 52 99 56 113 56 175 0 60 -5 77 -48 162 -142 279 -297 491 -526 721 -242 241 -436 381 -732 528 -446 222 -930 321 -1419 291z m423 -475 c445 -52 849 -217 1193 -486 128 -100 325 -302 423 -432 85 -113 191 -284 191 -307 0 -23 -106 -194 -191 -307 -89 -118 -274 -312 -384 -400 -477 -386 -1087 -577 -1670 -523 -591 55 -1112 304 -1513 725 -174 182 -371 467 -358 517 3 13 35 69 71 126 187 299 476 584 769 761 208 126 511 245 738 291 246 50 501 62 731 35z"
+                  />
+                  <path
+                    d="M2393 3495 c-228 -41 -433 -164 -577 -346 -250 -316 -274 -751 -60 -1096 64 -104 206 -244 312 -307 94 -56 244 -110 352 -127 92 -14 282 -6 365 16 319 84 568 312 671 612 74 217 74 409 0 626 -149 436 -607 705 -1063 622z m321 -477 c197 -64 327 -244 327 -453 1 -140 -44 -250 -142 -347 -235 -236 -632 -165 -777 139 -37 77 -37 79 -37 203 0 124 0 126 37 203 108 226 356 333 592 255z"
+                  />
+                </g>
+              </svg>
+            </q-btn>
+          </q-td>
+        </template>
+      </q-table>
+    </div>
+    <div class="q-pa-md" v-if="rowsResultados.length">
+      <q-table
+        title="Resultados"
+        :rows="rowsResultados"
+        :columns="columnsResultados"
+        row-key="name"
+      >
+        <template v-slot:top-right>
+          <q-btn color="negative" @click="cerrarResultados()">
+            <svg
+              version="1.0"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 297.910350 297.916632"
+              preserveAspectRatio="xMidYMid meet"
+            >
+              <g
+                transform="translate(-107.044825,404.954655) scale(0.100000,-0.100000)"
+                fill="#ffffff"
+                stroke="none"
+              >
+                <path
+                  d="M1195 4033 c-44 -23 -84 -63 -106 -105 -23 -46 -25 -127 -3 -171 9 -18 278 -294 597 -614 l582 -583 -582 -582 c-319 -321 -588 -597 -597 -615 -22 -44 -20 -125 3 -171 24 -46 76 -97 114 -111 36 -14 117 -14 154 -1 15 6 290 273 616 598 l587 587 588 -587 c325 -325 600 -592 615 -598 37 -13 118 -13 154 1 38 14 90 65 114 111 23 46 25 127 3 171 -9 18 -278 294 -597 615 l-582 582 582 583 c319 320 588 596 597 614 21 41 21 125 0 166 -23 45 -63 86 -106 108 -46 23 -127 25 -171 3 -18 -9 -294 -278 -614 -597 l-583 -582 -582 582 c-321 319 -597 588 -615 597 -41 20 -129 20 -168 -1z"
+                />
+              </g>
+            </svg>
+          </q-btn>
+        </template>
       </q-table>
     </div>
   </div>
@@ -166,7 +224,13 @@ let columns = [
     headerStyle: "font-weight: bold;",
     field: "Estado",
   },
-
+  {
+    name: "Resultado",
+    label: "Resultado",
+    align: "center",
+    headerStyle: "font-weight: bold;",
+    field: "Resultado",
+  },
   {
     name: "Acciones",
     label: "",
@@ -177,6 +241,66 @@ let columns = [
 ];
 
 let rows = ref([]);
+
+let columnsResultados = [
+  {
+    name: "Fosforo",
+    label: "Fósforo",
+    align: "center",
+    field: "Fosforo",
+  },
+  {
+    name: "Azufre",
+    label: "Azufre",
+    align: "center",
+    field: "Azufre",
+  },
+  {
+    name: "Zinc",
+    label: "Zinc",
+    align: "center",
+    field: "Zinc",
+  },
+  {
+    name: "Manganeso",
+    label: "Manganeso",
+    align: "center",
+    field: "Manganeso",
+  },
+  {
+    name: "Cobre",
+    label: "Cobre",
+    align: "center",
+    field: "Cobre",
+  },
+  {
+    name: "Potasio",
+    label: "Potasio",
+    align: "center",
+    field: "Potasio",
+  },
+  {
+    name: "Calcio",
+    label: "Calcio",
+    align: "center",
+    field: "Calcio",
+  },
+  {
+    name: "Magnesio",
+    label: "Magnesio",
+    align: "center",
+    field: "Magnesio",
+  },
+  {
+    name: "Sodio",
+    label: "Sodio",
+    align: "center",
+    field: "Sodio",
+  },
+];
+
+let rowsResultados = ref([]);
+
 let exportarPDF = () => {
   const doc = new jsPDF();
   doc.setFontSize(18);
@@ -185,9 +309,9 @@ let exportarPDF = () => {
   const columnasImportantes = columns.slice(0, 5);
 
   doc.autoTable({
-    head: [columnasImportantes.map(col => col.label)],
-    body: rows.value.map(row =>
-      columnasImportantes.map(col =>
+    head: [columnasImportantes.map((col) => col.label)],
+    body: rows.value.map((row) =>
+      columnasImportantes.map((col) =>
         typeof col.field === "function" ? col.field(row) : row[col.field]
       )
     ),
@@ -243,6 +367,27 @@ const limpiarFiltros = () => {
   filtroNombre.value = null;
   filtroTipo.value = null;
 };
+
+let verResultados = (Resultados) => {
+  rowsResultados.value = [
+    {
+      Fosforo: Resultados.Resultado[0].Fosforo,
+      Azufre: Resultados.Resultado[0].Azufre,
+      Zinc: Resultados.Resultado[0].Zinc,
+      Manganeso: Resultados.Resultado[0].Manganeso,
+      Cobre: Resultados.Resultado[0].Cobre,
+      Potasio: Resultados.Resultado[0].Potasio,
+      Calcio: Resultados.Resultado[0].Calcio,
+      Magnesio: Resultados.Resultado[0].Magnesio,
+      Sodio: Resultados.Resultado[0].Sodio,
+    },
+  ];
+};
+
+let cerrarResultados = () => {
+  rowsResultados.value = [];
+};
+
 onMounted(() => {
   finca.value = localStorage.getItem("Finca");
   console.log(finca.value);

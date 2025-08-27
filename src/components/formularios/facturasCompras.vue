@@ -293,9 +293,6 @@
             <div class="cont_inputs">
               <label for="detalles">Detalles</label>
               <button class="btnAbrir" @click="abirDetalles()">Agregar</button>
-              <button class="btnAbrir btnAbrir2" @click="editarDetalles()">
-                {{ detalle }}
-              </button>
             </div>
             <div class="cont_inputs">
               <label for="impuesto">Impuestos</label>

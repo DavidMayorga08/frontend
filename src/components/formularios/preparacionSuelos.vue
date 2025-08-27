@@ -347,7 +347,7 @@
           </div>
         </div>
         <div class="cont_btn">
-          <button class="btn" @click="agregarProducto()">Agregar otro producto</button>
+          <button class="btn" @click="agregarProducto()">Agregar</button>
         </div>
         <div class="cont_btn">
           <button class="btn" @click="cerrarForm()">Cerrar</button>
@@ -480,6 +480,31 @@ let Dosis = ref("");
 let Metodo_aplicacion = ref("");
 let prodcutos = ref([]);
 
+let agregarProducto = () => {
+  if (
+    !Ingrediente_activo.value.trim() ||
+    !Dosis.value.trim() ||
+    !Metodo_aplicacion.value.trim()
+  ) {
+    text.value = "Todos los campos son obligatorios";
+    registroFallido.value = true;
+    ocultar();
+    return;
+  }
+
+  let producto = {
+    Ingrediente_activo: Ingrediente_activo.value,
+    Dosis: Dosis.value,
+    Metodo_aplicacion: Metodo_aplicacion.value,
+  };
+  prodcutos.value.push(producto);
+  console.log(prodcutos.value);
+  Ingrediente_activo.value = "";
+  Dosis.value = "";
+  Metodo_aplicacion.value = "";
+  form2.value = false;
+};
+
 if (id.value) {
   titulo.value = "Editar preparación de suelo";
   produc.value = "Productos";
@@ -519,20 +544,8 @@ function validarCampos() {
     ocultar();
     return false;
   }
-  if (!Ingrediente_activo.value.trim()) {
-    text.value = "El campo ingrediente activo es obligatorio";
-    registroFallido.value = true;
-    ocultar();
-    return false;
-  }
-  if (!Dosis.value.trim()) {
-    text.value = "El campo dosis es obligatorio";
-    registroFallido.value = true;
-    ocultar();
-    return false;
-  }
-  if (!Metodo_aplicacion.value.trim()) {
-    text.value = "El campo método de aplicación es obligatorio";
+  if (prodcutos.value.length === 0) {
+    text.value = "Debe agregar al menos un producto";
     registroFallido.value = true;
     ocultar();
     return false;
@@ -588,9 +601,10 @@ let enviar = async () => {
 
     let preparacionSuelo = {
       Id_finca: id_finca.value,
+      Fecha: fecha.value,
       Id_parcela: parcelas.value._id,
       Responsable: responsable.value,
-      Prodcutos: prodcutos.value,
+      Productos: prodcutos.value,
       Observaciones: Observaciones.value,
       Estado_suelo: Estado_Suelo.value,
       Historial_modificacion: [modifica]
